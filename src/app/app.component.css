@@ -1,0 +1,21 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  --toolbar-height: 64px;
+}
+
+mat-sidenav-container, mat-sidenav-content, main {
+  display: flex;
+  flex-direction: column;
+  flex: auto;
+}
+
+#sidenav {
+  min-width: 256px; 
+}
+
+.content {
+  margin: auto;
+  text-align: center;
+}

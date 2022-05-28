@@ -1,0 +1,14 @@
+mat-progress-bar {
+  position: absolute;
+  top: 64px;
+  left: 0;
+  right: 0;
+}
+
+mat-form-field {
+  width: clamp(500px, 50%, 1000px);
+}
+
+#loginButton, #signUpButton {
+  margin-top: 16px;
+}
