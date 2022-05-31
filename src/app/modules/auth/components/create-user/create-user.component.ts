@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { UserControllerService } from 'src/app/api/services';
+import { UserControllerService } from 'src/app/api/auth/services';
 
 @Component({
   selector: 'app-create-user',

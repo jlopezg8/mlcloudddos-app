@@ -1,7 +1,23 @@
+<mat-progress-bar *ngIf="isDownloadingCapture || isUploadingCapture"
+                  mode="indeterminate"
+                  color="accent">
+</mat-progress-bar>
+
 <h2>Capturas</h2>
+
+<mat-action-list>
+  <button mat-list-item
+          *ngFor="let filename of filenames$ | async"
+          (click)="downloadCapture(filename)">
+    {{filename}}
+  </button>
+</mat-action-list>
 
 <button mat-fab aria-label="Añadir captura" (click)="fileInput.click()">
   <mat-icon>add</mat-icon>
 </button>
 
-<input #fileInput type="file">
+<input type="file"
+       #fileInput
+       (change)="onFileSelect($event)"
+       accept="application/JSON">

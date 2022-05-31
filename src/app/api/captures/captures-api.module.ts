@@ -4,9 +4,8 @@ import { NgModule, ModuleWithProviders, SkipSelf, Optional } from '@angular/core
 import { HttpClient } from '@angular/common/http';
 import { ApiConfiguration, ApiConfigurationParams } from './api-configuration';
 
-import { AuthControllerService } from './services/auth-controller.service';
+import { CaptureControllerService } from './services/capture-controller.service';
 import { PingControllerService } from './services/ping-controller.service';
-import { UserControllerService } from './services/user-controller.service';
 
 /**
  * Module that provides all services and configuration.
@@ -16,16 +15,15 @@ import { UserControllerService } from './services/user-controller.service';
   exports: [],
   declarations: [],
   providers: [
-    AuthControllerService,
+    CaptureControllerService,
     PingControllerService,
-    UserControllerService,
     ApiConfiguration
   ],
 })
-export class ApiModule {
-  static forRoot(params: ApiConfigurationParams): ModuleWithProviders<ApiModule> {
+export class CapturesApiModule {
+  static forRoot(params: ApiConfigurationParams): ModuleWithProviders<CapturesApiModule> {
     return {
-      ngModule: ApiModule,
+      ngModule: CapturesApiModule,
       providers: [
         {
           provide: ApiConfiguration,
@@ -36,11 +34,11 @@ export class ApiModule {
   }
 
   constructor( 
-    @Optional() @SkipSelf() parentModule: ApiModule,
+    @Optional() @SkipSelf() parentModule: CapturesApiModule,
     @Optional() http: HttpClient
   ) {
     if (parentModule) {
-      throw new Error('ApiModule is already loaded. Import in your base AppModule only.');
+      throw new Error('CapturesApiModule is already loaded. Import in your base AppModule only.');
     }
     if (!http) {
       throw new Error('You need to import the HttpClientModule in your AppModule! \n' +
