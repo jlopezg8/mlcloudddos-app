@@ -7,8 +7,6 @@ import { AUTH_TOKEN_STORAGE_KEY } from '../config';
 })
 export class AuthTokenStorageService {
 
-  constructor() { }
-
   get() {
     return localStorage.getItem(AUTH_TOKEN_STORAGE_KEY);
   }
@@ -20,4 +18,5 @@ export class AuthTokenStorageService {
   remove() {
     localStorage.removeItem(AUTH_TOKEN_STORAGE_KEY);
   }
+
 }

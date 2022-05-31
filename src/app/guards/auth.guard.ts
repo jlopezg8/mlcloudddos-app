@@ -12,7 +12,7 @@ export class AuthGuard implements CanActivate, CanLoad {
     private auth: AuthService,
     private router: Router,
   ) { }
-  
+
   canActivate() {
     if (!this.auth.isAuthenticated()) {
       // Redirect to the login page
@@ -24,5 +24,5 @@ export class AuthGuard implements CanActivate, CanLoad {
   canLoad() {
     return this.canActivate();
   }
-  
+
 }

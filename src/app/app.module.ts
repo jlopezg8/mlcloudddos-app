@@ -8,12 +8,10 @@ import { ApiModule } from './api/api.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CloudsComponent } from './components/clouds/clouds.component';
-import { FooterComponent } from './components/footer/footer.component';
-import { HomeComponent } from './components/home/home.component';
-import { SidenavContentComponent } from './components/sidenav-content/sidenav-content.component';
+import { SideContentComponent } from './components/side-content/side-content.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { AUTH_API_DOMAIN, AUTH_API_ROOT_URL } from './config';
-import { MaterialDesignModule } from './modules/material-design.module';
+import { AngularMaterialModule } from './modules/angular-material.module';
 import { AuthTokenStorageService } from './services/auth-token-storage.service';
 
 const authTokenStorage = new AuthTokenStorageService();
@@ -22,9 +20,7 @@ const authTokenStorage = new AuthTokenStorageService();
   declarations: [
     AppComponent,
     CloudsComponent,
-    FooterComponent,
-    HomeComponent,
-    SidenavContentComponent,
+    SideContentComponent,
     ToolbarComponent,
   ],
   imports: [
@@ -41,7 +37,7 @@ const authTokenStorage = new AuthTokenStorageService();
       },
     }),
     BrowserAnimationsModule,
-    MaterialDesignModule,
+    AngularMaterialModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

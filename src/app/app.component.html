@@ -1,22 +1,12 @@
-<div class="container">
-  <app-toolbar (toggleSidenav)="toggleSidenav()"></app-toolbar>
-  <mat-sidenav-container>
-    <mat-sidenav [(opened)]="sidenavOpened"
-                 fixedInViewport="true"
-                 fixedTopGap="64"
-                 role="navigation"
-                 autoFocus="false"
-                 id="sidenav">
-      <app-sidenav-content></app-sidenav-content>
-    </mat-sidenav>
-    <mat-sidenav-content>
-      <main>
-        <div class="content">
-          <router-outlet></router-outlet>
-        </div>
-        <app-clouds></app-clouds>
-      </main>
-    </mat-sidenav-content>
-  </mat-sidenav-container>
-  <!--app-footer></app-footer-->
-</div>
+<app-toolbar (toggleSidenav)="toggleSidenav()"></app-toolbar>
+<mat-sidenav-container>
+  <mat-sidenav [(opened)]="sidenavOpened" role="navigation" autoFocus="false">
+    <app-side-content></app-side-content>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <main>
+      <router-outlet></router-outlet>
+      <app-clouds></app-clouds>
+    </main>
+  </mat-sidenav-content>
+</mat-sidenav-container>

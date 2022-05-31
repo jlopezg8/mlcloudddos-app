@@ -1,10 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-
-/**
- * (tsType: NewUserRequest, schemaOptions: { title: 'NewUser' })
- */
-export interface NewUser {
+export interface NewUserRequest {
   email: string;
   emailVerified?: boolean;
   id?: string;

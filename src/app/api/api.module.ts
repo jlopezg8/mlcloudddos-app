@@ -4,6 +4,7 @@ import { NgModule, ModuleWithProviders, SkipSelf, Optional } from '@angular/core
 import { HttpClient } from '@angular/common/http';
 import { ApiConfiguration, ApiConfigurationParams } from './api-configuration';
 
+import { AuthControllerService } from './services/auth-controller.service';
 import { PingControllerService } from './services/ping-controller.service';
 import { UserControllerService } from './services/user-controller.service';
 
@@ -15,6 +16,7 @@ import { UserControllerService } from './services/user-controller.service';
   exports: [],
   declarations: [],
   providers: [
+    AuthControllerService,
     PingControllerService,
     UserControllerService,
     ApiConfiguration

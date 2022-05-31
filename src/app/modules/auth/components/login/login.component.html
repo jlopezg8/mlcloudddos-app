@@ -8,26 +8,23 @@
   <mat-form-field appearance="outline">
     <mat-label>Correo electrónico</mat-label>
     <input matInput type="email" formControlName="email">
-    <mat-error *ngIf="loginForm.controls['email'].invalid
-                      && loginForm.controls['email'].touched">
-      {{loginForm.controls['email'].errors | json}}
+    <mat-error *ngIf="shouldDisplayErrorMessage('email')">
+      {{getErrorMessage('email')}}
     </mat-error>
   </mat-form-field>
 
   <mat-form-field appearance="outline">
     <mat-label>Contraseña</mat-label>
     <input matInput type="password" formControlName="password">
-    <mat-error *ngIf="loginForm.controls['password'].invalid
-                      && loginForm.controls['password'].touched">
-      {{loginForm.controls['password'].errors | json}}
+    <mat-error *ngIf="shouldDisplayErrorMessage('password')">
+      {{getErrorMessage('password')}}
     </mat-error>
   </mat-form-field>
 
   <button mat-raised-button
           type="submit"
-          [disabled]="loginForm.invalid || isSubmitting"
           color="primary"
-          id="loginButton">
+          [disabled]="loginForm.invalid || isSubmitting">
     INICIAR SESIÓN
   </button>
 

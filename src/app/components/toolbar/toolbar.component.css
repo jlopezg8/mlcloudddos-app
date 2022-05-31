@@ -1,13 +1,11 @@
-#toolbar {
+mat-toolbar {
   position: fixed;
   top: 0;
   z-index: 10;
+  display: flex;
+  gap: 16px;
 }
 
-#menu-button {
-  margin-right: 16px;
-}
-
-.example-spacer {
-  flex: 1 1 auto;
+#sign-out-button {
+  margin-left: auto;
 }

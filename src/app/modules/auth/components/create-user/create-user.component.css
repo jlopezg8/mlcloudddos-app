@@ -1,6 +1,11 @@
+:host {
+  margin: auto;
+  text-align: center;
+}
+
 mat-progress-bar {
   position: absolute;
-  top: 64px;
+  top: var(--toolbar-height, 0);
   left: 0;
   right: 0;
 }
@@ -9,6 +14,10 @@ mat-form-field {
   width: clamp(500px, 50%, 1000px);
 }
 
-#createUserButton {
+mat-form-field:not(:first-of-type) {
+  margin-top: 8px;
+}
+
+button[type="submit"] {
   margin-top: 16px;
 }

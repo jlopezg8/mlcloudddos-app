@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { HomeComponent } from './components/home/home.component';
 import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
@@ -17,9 +16,7 @@ const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    //component: HomeComponent,
     redirectTo: '/captures',
-    //canActivate: [AuthGuard],
   },
   { path: '**', redirectTo: '' },
 ];

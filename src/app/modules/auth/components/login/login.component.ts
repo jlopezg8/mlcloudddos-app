@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { InvalidCredentialsError } from 'src/app/errors/auth';
+import { InvalidCredentialsError } from 'src/app/errors/invalid-credentials.error';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -39,6 +39,26 @@ export class LoginComponent {
           })
           .add(() => this.isSubmitting = false);
     }
+  }
+
+  shouldDisplayErrorMessage(controlName: string) {
+    const control = this.loginForm.controls[controlName];
+    return control.invalid && control.touched;
+  }
+
+  getErrorMessage(controlName: string) {
+    const control = this.loginForm.controls[controlName];
+    if (control.hasError('required')) {
+      return '*Requerido';
+    }
+    if (control.hasError('email')) {
+      return 'Correo inválido';
+    }
+    if (control.hasError('minlength')) {
+      const { requiredLength } = control.getError('minlength');
+      return `Debe tener al menos ${requiredLength} caracteres`;
+    }
+    return '';
   }
 
 }

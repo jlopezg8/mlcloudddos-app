@@ -1,10 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+import { AngularMaterialModule } from '../angular-material.module';
 import { CapturesRoutingModule } from './captures-routing.module';
-import { MaterialDesignModule } from '../material-design.module';
 import { CapturesComponent } from './components/captures/captures.component';
-
 
 @NgModule({
   declarations: [
@@ -13,7 +12,7 @@ import { CapturesComponent } from './components/captures/captures.component';
   imports: [
     CommonModule,
     CapturesRoutingModule,
-    MaterialDesignModule,
+    AngularMaterialModule,
   ]
 })
 export class CapturesModule { }
