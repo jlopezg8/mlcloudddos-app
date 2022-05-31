@@ -11,6 +11,11 @@ mat-sidenav-container, mat-sidenav-content, main {
   flex: auto;
 }
 
+main {
+  width: min(100%, 960px);
+  align-items: stretch;
+}
+
 mat-sidenav {
   position: fixed;
   top: var(--toolbar-height, 0);

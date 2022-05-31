@@ -1,3 +1,14 @@
+mat-progress-bar {
+  position: absolute;
+  top: var(--toolbar-height, 0);
+  left: 0;
+  right: 0;
+}
+
+h2 {
+  text-align: center;
+}
+
 [mat-fab] {
   position: fixed;
   bottom: 16px;

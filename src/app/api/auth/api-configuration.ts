@@ -13,7 +13,7 @@ export class ApiConfiguration {
 }
 
 /**
- * Parameters for `ApiModule.forRoot()`
+ * Parameters for `AuthApiModule.forRoot()`
  */
 export interface ApiConfigurationParams {
   rootUrl?: string;

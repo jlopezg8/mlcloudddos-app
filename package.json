@@ -7,7 +7,8 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "openapi-gen": "ng-openapi-gen --input http://[::1]:3000/openapi.json --output ./src/app/api"
+    "openapi-gen-auth": "ng-openapi-gen --input http://[::1]:3000/openapi.json --output ./src/app/api/auth --module AuthApiModule",
+    "openapi-gen-captures": "ng-openapi-gen --input http://[::1]:3001/openapi.json --output ./src/app/api/captures --module CapturesApiModule"
   },
   "private": true,
   "dependencies": {

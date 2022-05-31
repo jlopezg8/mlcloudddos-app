@@ -3,9 +3,9 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { BehaviorSubject, catchError, map } from 'rxjs';
-import { Credentials } from '../api/models';
+import { Credentials } from '../api/auth/models';
 
-import { AuthControllerService } from '../api/services';
+import { AuthControllerService } from '../api/auth/services';
 import { LOGIN_URL } from '../config';
 import { InvalidCredentialsError } from '../errors/invalid-credentials.error';
 import { AuthTokenStorageService } from './auth-token-storage.service';
