@@ -1,32 +1,39 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, tap } from 'rxjs';
+import { BehaviorSubject, catchError, tap } from 'rxjs';
+import { Capture } from 'src/app/api/captures/models';
 import { CaptureControllerService } from 'src/app/api/captures/services';
 
 @Injectable()
 export class CapturesService {
 
-  filenames$ = new BehaviorSubject(['']);
+  captures$ = new BehaviorSubject<Capture[]>([]);
 
   constructor(
     private captureController: CaptureControllerService,
   ) {
-    this.updateFilenames$();
+    this.updateCaptures$();
   }
 
-  private updateFilenames$() {
-    this.getFilenames()
-        .subscribe(filenames => this.filenames$.next(filenames));
+  private updateCaptures$() {
+    this.getCaptures()
+        .subscribe(captures => {
+          this.captures$.next(captures);
+        });
   }
 
   upload(capture: Blob) {
     return this.captureController
       .upload({body: { file: capture }})
       .pipe(
-        tap(() => this.updateFilenames$()),
+        catchError(err => {
+          console.error(err);
+          throw err;
+        }),
+        tap(() => this.updateCaptures$()),
       );
   }
 
-  getFilenames() {
+  getCaptures() {
     return this.captureController.listCaptures();
   }
 

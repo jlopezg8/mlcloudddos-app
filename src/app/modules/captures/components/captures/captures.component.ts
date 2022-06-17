@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { map } from 'rxjs';
+import { CaptureModel } from 'src/app/modules/models/capture.model';
 
 import { CapturesService } from '../../services/captures.service';
 
@@ -12,7 +14,14 @@ export class CapturesComponent {
 
   isDownloadingCapture = false;
   isUploadingCapture = false;
-  filenames$ = this.captures.filenames$;
+  captures$ = this.captures.captures$.pipe(
+    map(captures => captures.map(({ filepath, datetime }, index) => ({
+      index: index + 1,
+      filename: filepath,
+      datetime: new Date(datetime),
+    }))),
+  );
+  displayedColumns: (keyof CaptureModel)[] = ['index', 'filename', 'datetime'];
 
   constructor(
     private captures: CapturesService,

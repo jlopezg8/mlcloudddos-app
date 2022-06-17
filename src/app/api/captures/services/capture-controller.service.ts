@@ -9,6 +9,7 @@ import { RequestBuilder } from '../request-builder';
 import { Observable } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
 
+import { Capture } from '../models/capture';
 
 @Injectable({
   providedIn: 'root',
@@ -79,7 +80,7 @@ export class CaptureControllerService extends BaseService {
    * This method doesn't expect any request body.
    */
   listCaptures$Response(params?: {
-  }): Observable<StrictHttpResponse<Array<string>>> {
+  }): Observable<StrictHttpResponse<Array<Capture>>> {
 
     const rb = new RequestBuilder(this.rootUrl, CaptureControllerService.CaptureControllerListCapturesPath, 'get');
     if (params) {
@@ -91,7 +92,7 @@ export class CaptureControllerService extends BaseService {
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<Array<string>>;
+        return r as StrictHttpResponse<Array<Capture>>;
       })
     );
   }
@@ -103,10 +104,10 @@ export class CaptureControllerService extends BaseService {
    * This method doesn't expect any request body.
    */
   listCaptures(params?: {
-  }): Observable<Array<string>> {
+  }): Observable<Array<Capture>> {
 
     return this.listCaptures$Response(params).pipe(
-      map((r: StrictHttpResponse<Array<string>>) => r.body as Array<string>)
+      map((r: StrictHttpResponse<Array<Capture>>) => r.body as Array<Capture>)
     );
   }
 

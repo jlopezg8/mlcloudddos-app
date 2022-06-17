@@ -9,6 +9,15 @@ h2 {
   text-align: center;
 }
 
+table {
+  margin-top: 32px;
+  width: 100%;
+}
+
+a[role="button"] {
+  cursor: pointer;
+}
+
 [mat-fab] {
   position: fixed;
   bottom: 16px;

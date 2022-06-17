@@ -3,15 +3,34 @@
                   color="accent">
 </mat-progress-bar>
 
-<h2>Capturas</h2>
+<h2>Mis Capturas</h2>
 
-<mat-action-list>
-  <button mat-list-item
-          *ngFor="let filename of filenames$ | async"
-          (click)="downloadCapture(filename)">
-    {{filename}}
-  </button>
-</mat-action-list>
+<table mat-table [dataSource]="captures$" class="mat-elevation-z8">
+
+  <ng-container matColumnDef="index">
+    <th mat-header-cell *matHeaderCellDef>No.</th>
+    <td mat-cell *matCellDef="let element">{{element.index}}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="filename">
+    <th mat-header-cell *matHeaderCellDef>Nombre del archivo</th>
+    <td mat-cell *matCellDef="let element">
+      <a role="button" (click)="downloadCapture(element.filename)">
+        {{element.filename}}
+      </a>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="datetime">
+    <th mat-header-cell *matHeaderCellDef>Fecha y hora de subida</th>
+    <td mat-cell *matCellDef="let element">
+      {{element.datetime | date:'yyyy-MM-dd HH:mm:ss'}}
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
 
 <button mat-fab aria-label="Añadir captura" (click)="fileInput.click()">
   <mat-icon>add</mat-icon>
