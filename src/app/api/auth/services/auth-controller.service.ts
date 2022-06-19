@@ -143,4 +143,57 @@ export class AuthControllerService extends BaseService {
     );
   }
 
+  /**
+   * Path part for operation authControllerWhoAmI
+   */
+  static readonly AuthControllerWhoAmIPath = '/whoAmI';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `whoAmI()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  whoAmI$Response(params?: {
+  }): Observable<StrictHttpResponse<{
+'id': string;
+}>> {
+
+    const rb = new RequestBuilder(this.rootUrl, AuthControllerService.AuthControllerWhoAmIPath, 'get');
+    if (params) {
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<{
+        'id': string;
+        }>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `whoAmI$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  whoAmI(params?: {
+  }): Observable<{
+'id': string;
+}> {
+
+    return this.whoAmI$Response(params).pipe(
+      map((r: StrictHttpResponse<{
+'id': string;
+}>) => r.body as {
+'id': string;
+})
+    );
+  }
+
 }

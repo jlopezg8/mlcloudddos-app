@@ -23,23 +23,23 @@ export class CaptureControllerService extends BaseService {
   }
 
   /**
-   * Path part for operation captureControllerDownloadCapture
+   * Path part for operation captureControllerDownload
    */
-  static readonly CaptureControllerDownloadCapturePath = '/captures/{filename}';
+  static readonly CaptureControllerDownloadPath = '/captures/{id}';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `downloadCapture()` instead.
+   * To access only the response body, use `download()` instead.
    *
    * This method doesn't expect any request body.
    */
-  downloadCapture$Response(params: {
-    filename: string;
+  download$Response(params: {
+    id: string;
   }): Observable<StrictHttpResponse<Blob>> {
 
-    const rb = new RequestBuilder(this.rootUrl, CaptureControllerService.CaptureControllerDownloadCapturePath, 'get');
+    const rb = new RequestBuilder(this.rootUrl, CaptureControllerService.CaptureControllerDownloadPath, 'get');
     if (params) {
-      rb.path('filename', params.filename, {});
+      rb.path('id', params.id, {});
     }
 
     return this.http.request(rb.build({
@@ -55,34 +55,34 @@ export class CaptureControllerService extends BaseService {
 
   /**
    * This method provides access to only to the response body.
-   * To access the full response (for headers, for example), `downloadCapture$Response()` instead.
+   * To access the full response (for headers, for example), `download$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  downloadCapture(params: {
-    filename: string;
+  download(params: {
+    id: string;
   }): Observable<Blob> {
 
-    return this.downloadCapture$Response(params).pipe(
+    return this.download$Response(params).pipe(
       map((r: StrictHttpResponse<Blob>) => r.body as Blob)
     );
   }
 
   /**
-   * Path part for operation captureControllerListCaptures
+   * Path part for operation captureControllerListMine
    */
-  static readonly CaptureControllerListCapturesPath = '/captures';
+  static readonly CaptureControllerListMinePath = '/captures';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `listCaptures()` instead.
+   * To access only the response body, use `listMine()` instead.
    *
    * This method doesn't expect any request body.
    */
-  listCaptures$Response(params?: {
+  listMine$Response(params?: {
   }): Observable<StrictHttpResponse<Array<Capture>>> {
 
-    const rb = new RequestBuilder(this.rootUrl, CaptureControllerService.CaptureControllerListCapturesPath, 'get');
+    const rb = new RequestBuilder(this.rootUrl, CaptureControllerService.CaptureControllerListMinePath, 'get');
     if (params) {
     }
 
@@ -99,14 +99,14 @@ export class CaptureControllerService extends BaseService {
 
   /**
    * This method provides access to only to the response body.
-   * To access the full response (for headers, for example), `listCaptures$Response()` instead.
+   * To access the full response (for headers, for example), `listMine$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  listCaptures(params?: {
+  listMine(params?: {
   }): Observable<Array<Capture>> {
 
-    return this.listCaptures$Response(params).pipe(
+    return this.listMine$Response(params).pipe(
       map((r: StrictHttpResponse<Array<Capture>>) => r.body as Array<Capture>)
     );
   }

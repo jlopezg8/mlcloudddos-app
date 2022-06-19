@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { map } from 'rxjs';
-import { CaptureModel } from 'src/app/modules/models/capture.model';
+import { CaptureModel } from 'src/app/modules/captures/models/capture.model';
 
 import { CapturesService } from '../../services/captures.service';
 
@@ -13,25 +13,29 @@ import { CapturesService } from '../../services/captures.service';
 export class CapturesComponent {
 
   isDownloadingCapture = false;
+
   isUploadingCapture = false;
+
   captures$ = this.captures.captures$.pipe(
-    map(captures => captures.map(({ filepath, datetime }, index) => ({
-      index: index + 1,
-      filename: filepath,
-      datetime: new Date(datetime),
+    map(captures => captures.map<CaptureModel>((capture, index) => ({
+      number: index + 1,
+      id: capture.id ?? '',
+      name: capture.filePath,
+      timestamp: new Date(capture.timestamp),
     }))),
   );
-  displayedColumns: (keyof CaptureModel)[] = ['index', 'filename', 'datetime'];
+
+  capturesTableColumns: (keyof CaptureModel)[] = ['number', 'name', 'timestamp'];
 
   constructor(
     private captures: CapturesService,
     private snackBar: MatSnackBar,
   ) { }
 
-  downloadCapture(filename: string) {
+  downloadCapture(captureId: string) {
     this.isDownloadingCapture = true;
     this.captures
-        .download(filename)
+        .downloadCapture(captureId)
         .subscribe(capture => {
           window.open(URL.createObjectURL(capture));
         })
@@ -43,7 +47,7 @@ export class CapturesComponent {
     if (file) {
       this.isUploadingCapture = true;
       this.captures
-          .upload(file)
+          .uploadCapture(file)
           .subscribe({
             next: () => this.displayMessage('Captura subida'),
             error: () => this.displayMessage(

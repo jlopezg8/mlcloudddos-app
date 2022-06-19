@@ -6,6 +6,7 @@ export interface NewUserRequest {
   id?: string;
   password: string;
   realm?: string;
+  role?: 'ADMIN' | 'USER';
   username?: string;
   verificationToken?: string;
 
