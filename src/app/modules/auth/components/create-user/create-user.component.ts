@@ -14,6 +14,7 @@ export class CreateUserComponent {
   createUserForm = this.formBuilder.group({
     email: ['', [Validators.required, Validators.email]],
     password: ['', [Validators.required, Validators.minLength(8)]],
+    isAdmin: false,
   });
 
   constructor(
@@ -25,9 +26,13 @@ export class CreateUserComponent {
   onSubmit(): void {
     if (this.createUserForm.valid) {
       this.isSubmitting = true;
-      const { email, password } = this.createUserForm.value;
+      const { email, password, isAdmin } = this.createUserForm.value;
       this.userController
-          .createUser({ body: { email, password } })
+          .createUser({ body: {
+            email,
+            password,
+            role: isAdmin ? 'ADMIN' : 'USER',
+          }})
           .subscribe({
             next: () => this.displayMessage('Usuario creado'),
             error: () => this.displayMessage(

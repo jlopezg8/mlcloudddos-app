@@ -10,14 +10,20 @@ mat-progress-bar {
   right: 0;
 }
 
+h2 {
+  margin-bottom: 40px;
+}
+
 mat-form-field {
-  width: clamp(500px, 50%, 1000px);
+  display: block;
+  width: 500px;
+  margin: auto;
 }
 
 mat-form-field:not(:first-of-type) {
-  margin-top: 8px;
+  margin-top: 16px;
 }
 
 button[type="submit"] {
-  margin-top: 16px;
+  margin-top: 32px;
 }
