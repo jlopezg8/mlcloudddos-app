@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { AuthGuard } from './guards/auth.guard';
+import { AuthenticationGuard } from './guards/authentication.guard';
 
 const routes: Routes = [
   {
@@ -11,7 +11,7 @@ const routes: Routes = [
   {
     path: 'captures',
     loadChildren: () => import('./modules/captures/captures.module').then(m => m.CapturesModule),
-    canLoad: [AuthGuard],
+    canLoad: [AuthenticationGuard],
   },
   {
     path: '',

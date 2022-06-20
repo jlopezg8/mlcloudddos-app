@@ -3,8 +3,8 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { BehaviorSubject, catchError, map } from 'rxjs';
-import { Credentials } from '../api/auth/models';
 
+import { Credentials, MyUserProfile } from '../api/auth/models';
 import { AuthControllerService } from '../api/auth/services';
 import { LOGIN_URL } from '../config';
 import { InvalidCredentialsError } from '../errors/invalid-credentials.error';
@@ -22,13 +22,22 @@ export class AuthService {
     private authController: AuthControllerService,
   ) { }
 
-  // https://medium.com/@ryanchenkie_40935/angular-authentication-using-route-guards-bf7a4ca13ae3
-  isAuthenticated(): boolean {
+  getUserProfile() {
     const token = this.authTokenStorage.get();
-    return token != null && !this.jwtHelper.isTokenExpired(token);
+    return token != null && !this.jwtHelper.isTokenExpired(token)
+      ? this.jwtHelper.decodeToken(token) as MyUserProfile
+      : undefined;
+  }
+
+  isAuthenticated() {
+    return this.getUserProfile() !== undefined;
   }
 
   isAuthenticated$ = new BehaviorSubject(this.isAuthenticated());
+
+  isAdmin$ = this.isAuthenticated$.pipe(
+    map(() => this.getUserProfile()?.role === 'ADMIN')
+  );
 
   login({ email, password }: Credentials) {
     return this.authController
@@ -41,19 +50,15 @@ export class AuthService {
         }),
         map(({ accessToken }) => {
           this.authTokenStorage.set(accessToken);
-          this.updateIsAuthenticated$();
+          this.isAuthenticated$.next(true);
           this.router.navigate(['/']);
         }),
       );
   }
 
-  private updateIsAuthenticated$() {
-    this.isAuthenticated$.next(this.isAuthenticated());
-  }
-
   signOut() {
     this.authTokenStorage.remove();
-    this.updateIsAuthenticated$();
+    this.isAuthenticated$.next(false);
     this.router.navigate([LOGIN_URL]);
   }
 

@@ -1,15 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-side-content',
   templateUrl: './side-content.component.html',
   styleUrls: ['./side-content.component.css']
 })
-export class SideContentComponent implements OnInit {
+export class SideContentComponent {
 
-  constructor() { }
+  isAdmin$ = this.auth.isAdmin$;
+  isAuthenticated$ = this.auth.isAuthenticated$;
 
-  ngOnInit(): void {
-  }
+  constructor(
+    private auth: AuthService,
+  ) { }
 
 }

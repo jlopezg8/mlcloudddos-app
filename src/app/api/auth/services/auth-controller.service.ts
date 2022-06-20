@@ -10,6 +10,7 @@ import { Observable } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
 
 import { Credentials } from '../models/credentials';
+import { MyUserProfile } from '../models/my-user-profile';
 
 @Injectable({
   providedIn: 'root',
@@ -155,9 +156,7 @@ export class AuthControllerService extends BaseService {
    * This method doesn't expect any request body.
    */
   whoAmI$Response(params?: {
-  }): Observable<StrictHttpResponse<{
-'id': string;
-}>> {
+  }): Observable<StrictHttpResponse<MyUserProfile>> {
 
     const rb = new RequestBuilder(this.rootUrl, AuthControllerService.AuthControllerWhoAmIPath, 'get');
     if (params) {
@@ -169,9 +168,7 @@ export class AuthControllerService extends BaseService {
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<{
-        'id': string;
-        }>;
+        return r as StrictHttpResponse<MyUserProfile>;
       })
     );
   }
@@ -183,16 +180,10 @@ export class AuthControllerService extends BaseService {
    * This method doesn't expect any request body.
    */
   whoAmI(params?: {
-  }): Observable<{
-'id': string;
-}> {
+  }): Observable<MyUserProfile> {
 
     return this.whoAmI$Response(params).pipe(
-      map((r: StrictHttpResponse<{
-'id': string;
-}>) => r.body as {
-'id': string;
-})
+      map((r: StrictHttpResponse<MyUserProfile>) => r.body as MyUserProfile)
     );
   }
 

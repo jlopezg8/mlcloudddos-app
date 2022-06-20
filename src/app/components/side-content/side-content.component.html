@@ -1,7 +1,11 @@
-<mat-nav-list>
-  <h3 matSubheader>Capturas</h3>
-  <a mat-list-item routerLink="/captures">Mis capturas</a>
-  <mat-divider></mat-divider>
-  <h3 matSubheader>Administración</h3>
-  <a mat-list-item routerLink="/auth/create-user">Crear usuario</a>
+<mat-nav-list *ngIf="isAuthenticated$ | async">
+  <section>
+    <h3 matSubheader>Capturas</h3>
+    <a mat-list-item routerLink="/captures">Mis capturas</a>
+  </section>
+  <section *ngIf="isAdmin$ | async">
+    <mat-divider></mat-divider>
+    <h3 matSubheader>Administración</h3>
+    <a mat-list-item routerLink="/auth/create-user">Crear usuario</a>
+  </section>
 </mat-nav-list>
