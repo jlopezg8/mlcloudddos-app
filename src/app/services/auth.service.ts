@@ -2,9 +2,9 @@ import { HttpStatusCode } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { BehaviorSubject, catchError, map } from 'rxjs';
-import { Credentials } from '../api/auth/models';
+import { BehaviorSubject, catchError, map, of, switchMap } from 'rxjs';
 
+import { Credentials } from '../api/auth/models';
 import { AuthControllerService } from '../api/auth/services';
 import { LOGIN_URL } from '../config';
 import { InvalidCredentialsError } from '../errors/invalid-credentials.error';
@@ -56,5 +56,11 @@ export class AuthService {
     this.updateIsAuthenticated$();
     this.router.navigate([LOGIN_URL]);
   }
+
+  userProfile$ = this.isAuthenticated$.pipe(
+    switchMap(isAuthenticated =>
+      isAuthenticated ? this.authController.whoAmI() : of(undefined)
+    )
+  );
 
 }
