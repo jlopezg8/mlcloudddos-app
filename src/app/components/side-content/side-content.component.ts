@@ -8,8 +8,8 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class SideContentComponent {
 
+  isAdmin$ = this.auth.isAdmin$;
   isAuthenticated$ = this.auth.isAuthenticated$;
-  userProfile$ = this.auth.userProfile$;
 
   constructor(
     private auth: AuthService,

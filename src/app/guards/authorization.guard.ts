@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate } from '@angular/router';
-import { map } from 'rxjs';
 
 import { AuthService } from '../services/auth.service';
 
@@ -16,11 +15,8 @@ export class AuthorizationGuard implements CanActivate {
     // https://medium.com/@ryanchenkie_40935/angular-authentication-using-route-guards-bf7a4ca13ae3#2f80
     // this will be passed from the route config on the data property
     const allowedRoles: string[] = route.data['allowedRoles'] ?? [];
-    return this.auth.userProfile$.pipe(
-      map(userProfile =>
-        !!userProfile && allowedRoles.includes(userProfile.role)
-      )
-    );
+    const userRole = this.auth.getUserProfile()?.role;
+    return !!userRole && allowedRoles.includes(userRole);
   }
 
 }
