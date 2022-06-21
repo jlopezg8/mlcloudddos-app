@@ -9,6 +9,10 @@ export class AppComponent {
 
   sidenavOpened = false;
 
+  closeSidenav() {
+    this.sidenavOpened = false;
+  }
+
   toggleSidenav() {
     this.sidenavOpened = !this.sidenavOpened;
   }

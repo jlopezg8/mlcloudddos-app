@@ -7,7 +7,8 @@ import { AuthService } from 'src/app/services/auth.service';
 @Injectable()
 export class CapturesService {
 
-  captures$ = new BehaviorSubject<Capture[]>([]);
+  private _captures$ = new BehaviorSubject<Capture[]>([]);
+  captures$ = this._captures$.asObservable();
 
   constructor(
     private auth: AuthService,
@@ -17,22 +18,19 @@ export class CapturesService {
   }
 
   private subscribeToAuthChanges() {
-    this.auth
-        .isAuthenticated$
-        .subscribe(isAuthenticated => {
-          if (isAuthenticated) {
-            this.updateCaptures$();
-          } else {
-            this.captures$.next([]);
-          }
-        });
+    this.auth.isAuthenticated$.subscribe(isAuthenticated => {
+      if (isAuthenticated) {
+        this.updateCaptures$();
+      } else {
+        this._captures$.next([]);
+      }
+    });
   }
 
   private updateCaptures$() {
-    this.getUserCaptures()
-        .subscribe(captures => {
-          this.captures$.next(captures);
-        });
+    this.getUserCaptures().subscribe(captures => {
+      this._captures$.next(captures);
+    });
   }
 
   uploadCapture(capture: Blob) {

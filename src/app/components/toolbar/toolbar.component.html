@@ -9,6 +9,7 @@
           type="button"
           *ngIf="isLoggedIn$ | async"
           (click)="signOut()"
+          (click)="closeSidenav.emit()"
           id="sign-out-button">
     CERRAR SESIÓN
   </button>
