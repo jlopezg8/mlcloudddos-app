@@ -8,8 +8,9 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class ToolbarComponent {
 
-  @Output() toggleSidenav = new EventEmitter();
+  @Output() closeSidenav = new EventEmitter();
   isLoggedIn$ = this.auth.isAuthenticated$;
+  @Output() toggleSidenav = new EventEmitter();
 
   constructor(
     private auth: AuthService,

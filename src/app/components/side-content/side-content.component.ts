@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -8,6 +8,7 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class SideContentComponent {
 
+  @Output() closeSidenav = new EventEmitter();
   isAdmin$ = this.auth.isAdmin$;
   isAuthenticated$ = this.auth.isAuthenticated$;
 

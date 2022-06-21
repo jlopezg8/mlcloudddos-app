@@ -1,7 +1,8 @@
-<app-toolbar (toggleSidenav)="toggleSidenav()"></app-toolbar>
+<app-toolbar (toggleSidenav)="toggleSidenav()" (closeSidenav)="closeSidenav()">
+</app-toolbar>
 <mat-sidenav-container>
   <mat-sidenav [(opened)]="sidenavOpened" role="navigation" autoFocus="false">
-    <app-side-content></app-side-content>
+    <app-side-content (closeSidenav)="closeSidenav()"></app-side-content>
   </mat-sidenav>
   <mat-sidenav-content>
     <main>

@@ -1,11 +1,15 @@
 <mat-nav-list *ngIf="isAuthenticated$ | async">
   <section>
     <h3 matSubheader>Capturas</h3>
-    <a mat-list-item routerLink="/captures">Mis capturas</a>
+    <a mat-list-item routerLink="/captures" (click)="closeSidenav.emit()">
+      Mis capturas
+    </a>
   </section>
   <section *ngIf="isAdmin$ | async">
     <mat-divider></mat-divider>
     <h3 matSubheader>Administración</h3>
-    <a mat-list-item routerLink="/auth/create-user">Crear usuario</a>
+    <a mat-list-item routerLink="/auth/create-user" (click)="closeSidenav.emit()">
+      Crear usuario
+    </a>
   </section>
 </mat-nav-list>

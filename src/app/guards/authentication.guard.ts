@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, CanLoad, Router } from '@angular/router';
+import { map } from 'rxjs';
 
 import { LOGIN_URL } from '../config';
 import { AuthService } from '../services/auth.service';
@@ -14,11 +15,12 @@ export class AuthenticationGuard implements CanActivate, CanLoad {
   ) { }
 
   canActivate() {
-    if (!this.auth.isAuthenticated()) {
-      // Redirect to the login page
-      return this.router.parseUrl(LOGIN_URL);
-    }
-    return true;
+    return this.auth.isAuthenticated().pipe(
+      map(isAuthenticated =>
+        // Redirect to the login page if not authenticated
+        isAuthenticated || this.router.parseUrl(LOGIN_URL)
+      )
+    );
   }
 
   canLoad() {
